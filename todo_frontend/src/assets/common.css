@@ -1,0 +1,132 @@
+:root {
+  /* Colors from design system */
+  --color-0f0f0f: #0f0f0f;
+  --color-1a1a1a: #1a1a1a;
+  --color-2a2a2a: #2a2a2a;
+  --color-ffffff: #ffffff;
+  --color-bb86fc: #bb86fc;
+  --color-000000: #000000;
+  --color-696969: #696969;
+  --color-0d0714: #0d0714;
+  --color-1d1825: #1d1825;
+  --color-15101c: #15101c;
+  --color-9e78cf: #9e78cf;
+  --color-78cfb0: #78cfb0;
+  --color-777777: #777777;
+  --color-3e1671: #3e1671;
+
+  /* Spacing scale (indices preserved) */
+  --space-0: 4.6222224236px;
+  --space-1: 6.7555556297px;
+  --space-2: 8px;
+  --space-3: 10.3607034683px;
+  --space-4: 11px;
+  --space-5: 11.3778076172px;
+  --space-6: 12.3759231567px;
+  --space-7: 16px;
+  --space-8: 16.5px;
+  --space-9: 17px;
+  --space-10: 17.1428565979px;
+  --space-11: 17.1882667542px;
+  --space-12: 17.7333335876px;
+  --space-13: 17.875px;
+  --space-14: 19px;
+  --space-15: 22px;
+  --space-16: 24px;
+  --space-17: 26px;
+  --space-18: 28px;
+  --space-19: 30px;
+  --space-20: 31px;
+  --space-21: 32px;
+  --space-22: 40px;
+  --space-23: 43.8666687012px;
+  --space-24: 46.1436157227px;
+  --space-25: 51.0000038147px;
+  --space-26: 64px;
+  --space-27: 67px;
+  --space-28: 68px;
+  --space-29: 70px;
+  --space-30: 74px;
+  --space-31: 75px;
+  --space-32: 95px;
+  --space-33: 98px;
+  --space-34: 101px;
+  --space-35: 110px;
+  --space-36: 114px;
+  --space-37: 117px;
+  --space-38: 221px;
+  --space-39: 293px;
+  --space-40: 343.1494750977px;
+  --space-41: 381px;
+  --space-42: 384px;
+  --space-43: 390.904876709px;
+  --space-44: 432px;
+  --space-45: 525px;
+  --space-46: 540px;
+  --space-47: 583px;
+  --space-48: 758px;
+  --space-49: 960px;
+  --space-50: 1024px;
+  --space-51: 1440px;
+
+  /* Border radius tokens */
+  --radius-5: 5px;
+  --radius-10: 10px;
+  --radius-20: 20px;
+  --radius-25: 25px;
+
+  /* Typography defaults */
+  --font-family-inter: Inter, ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Typography utility classes from design system */
+.typo-0 { font-family: var(--font-family-inter); font-size: 24px; line-height: 29.0454540253px; font-weight: 400; letter-spacing: 0; text-align: left; }
+.typo-1 { font-family: var(--font-family-inter); font-size: 12px; line-height: 14.5227270126px; font-weight: 400; letter-spacing: 0; text-align: left; }
+.typo-2 { font-family: var(--font-family-inter); font-size: 16px; line-height: 19.3636360168px; font-weight: 700; letter-spacing: 0; text-align: left; }
+.typo-3 { font-family: var(--font-family-inter); font-size: 16px; line-height: 19.3636360168px; font-weight: 400; letter-spacing: 0; text-align: left; }
+.typo-4 { font-family: var(--font-family-inter); font-size: 24px; line-height: 29.0454540253px; font-weight: 400; letter-spacing: 0; text-align: left; color: var(--color-ffffff); }
+.typo-5 { font-family: var(--font-family-inter); font-size: 12px; line-height: 14.5227270126px; font-weight: 400; letter-spacing: 0; text-align: left; color: var(--color-ffffff); }
+.typo-6 { font-family: var(--font-family-inter); font-size: 16px; line-height: 19.3636360168px; font-weight: 700; letter-spacing: 0; text-align: left; color: var(--color-ffffff); }
+.typo-7 { font-family: var(--font-family-inter); font-size: 16px; line-height: 19.3636360168px; font-weight: 400; letter-spacing: 0; text-align: left; color: var(--color-9e78cf); }
+.typo-8 { font-family: var(--font-family-inter); font-size: 16px; line-height: 19.3636360168px; font-weight: 400; letter-spacing: 0; text-align: left; color: var(--color-78cfb0); }
+.typo-9 { font-family: var(--font-family-inter); font-size: 16px; line-height: 19.3636360168px; font-weight: 400; letter-spacing: 0; text-align: left; color: var(--color-ffffff); }
+.typo-10 { font-family: var(--font-family-inter); font-size: 16px; line-height: 19.3636360168px; font-weight: 400; letter-spacing: 0; text-align: left; color: var(--color-777777); }
+
+/* Global reset for pixel-perfect canvas */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+}
+.canvas-wrap {
+  width: 960px;
+  height: 540px;
+  background: var(--color-0f0f0f); /* style_0 */
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto; /* center canvas in viewport */
+}
+
+/* Style tokens (style_*) mapped for reuse if needed */
+.style-0 { background: var(--color-0f0f0f); }
+.style-1 { background: var(--color-1a1a1a); border: 1px solid var(--color-2a2a2a); }
+.style-2 { background: var(--color-ffffff); }
+.style-3 { background: var(--color-bb86fc); border-radius: var(--radius-25); }
+.style-4 { background: var(--color-000000); }
+.style-5 { background: var(--color-1a1a1a); border: 1px solid var(--color-2a2a2a); border-radius: var(--radius-25); }
+.style-6 { border: 2px solid var(--color-bb86fc); }
+.style-7 { background: var(--color-696969); }
+.style-8 { background: var(--color-bb86fc); }
+.style-9 { border: 1px solid var(--color-000000); }
+.style-10 { background: var(--color-0d0714); }
+.style-11 { background: var(--color-1d1825); border-radius: var(--radius-20); }
+.style-12 { background: var(--color-15101c); border-radius: var(--radius-10); }
+.style-13 { background: var(--color-9e78cf); }
+.style-14 { background: var(--color-15101c); border-radius: var(--radius-5); }
+.style-15 { background: var(--color-78cfb0); }
+.style-16 { border: 1px solid var(--color-9e78cf); border-radius: var(--radius-10); }
+.style-17 { background: var(--color-9e78cf); border-radius: var(--radius-10); }
+.style-18 { background: var(--color-777777); }
+.style-19 { background: var(--color-3e1671); }
+.style-20 { border-radius: var(--radius-10); }
+.style-21 { border: 1px solid var(--color-3e1671); border-radius: var(--radius-10); }

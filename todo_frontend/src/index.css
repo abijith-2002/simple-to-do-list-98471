@@ -1,7 +1,12 @@
+/* Base smoothing */
 :root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Import Figma CSS tokens and screen styles so we can reuse variables/classes in React app */
+@import url("./assets/common.css");
+@import url("./assets/todo-2102-6.css");
 
 html, body, #root {
   height: 100%;
@@ -9,11 +14,129 @@ html, body, #root {
 
 body {
   margin: 0;
-  background: #f9fafb;
-  color: #111827;
-  font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--color-0f0f0f, #f9fafb); /* prefer Figma bg if present, fallback to Ocean */
+  color: var(--color-ffffff, #111827);
+  font-family: var(--font-family-inter, ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji");
 }
 
+/* Ensure anchor defaults */
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+/* Constrain app container for responsive layout around the Figma 960 canvas */
+.app-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+}
+
+/* Create a responsive shell that mimics the Figma canvas proportions */
+.canvas-responsive {
+  width: 100%;
+  max-width: 960px;
+}
+
+/* Adjust header readability on dark background */
+.ocean-header .app-title, .ocean-header .app-subtitle {
+  color: var(--color-ffffff, #111827);
+}
+
+/* Blend Ocean UI card with dark theme if Figma tokens active */
+.card {
+  background: var(--color-1a1a1a, #ffffff);
+  border-color: var(--color-2a2a2a, #E5E7EB);
+  color: var(--color-ffffff, #111827);
+}
+
+/* Buttons harmonized to Figma accent while keeping Ocean interactions */
+.btn-primary {
+  background: linear-gradient(180deg, var(--color-bb86fc, #3B82F6), #6f4bd8);
+  box-shadow: 0 6px 16px rgba(187,134,252,0.28);
+}
+
+/* Chips readable on dark */
+.chip { background: #141414; color: #e5e7eb; border-color: #262626; }
+.chip.selected {
+  color: #e9ddff;
+  border-color: rgba(187,134,252,0.6);
+  background: linear-gradient(180deg, #1c1c1c, #211a2f);
+  box-shadow: 0 8px 18px rgba(187,134,252,0.16);
+}
+
+/* Inputs on dark canvas */
+.todo-input input, .edit-input {
+  background: #121212;
+  color: #f3f4f6;
+  border-color: #2a2a2a;
+}
+.todo-input input::placeholder { color: #9ca3af; }
+
+/* Item backgrounds and hover on dark */
+.todo-item {
+  background: #15101c;
+  border-color: #2a2a2a;
+}
+.todo-item:hover {
+  border-color: #3a3a3a;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* Checkbox colors with bb86fc accent */
+.checkbox .checkmark {
+  background: linear-gradient(180deg, #15101c, #0d0714);
+  border-color: #2a2a2a;
+}
+.checkbox input:checked + .checkmark {
+  border-color: var(--color-bb86fc, #bb86fc);
+  background:
+    radial-gradient(16px 10px at 20% 20%, rgba(187,134,252,0.20), transparent),
+    linear-gradient(180deg, #2a2040, #0d0714);
+  box-shadow: inset 0 0 0 10px var(--color-bb86fc, #bb86fc), 0 0 0 4px rgba(187,134,252,0.18);
+}
+
+/* Empty state on dark */
+.empty { color: #a1a1aa; }
+.empty-badge {
+  background: #111111;
+  border-color: #262626;
+  color: #d1d5db;
+}
+
+/* Header style blending Ocean header with Figma header group look */
+.ocean-header {
+  background: #171717;
+  border-bottom: 1px solid #2a2a2a;
+  backdrop-filter: blur(8px);
+}
+
+/* Maintain responsive spacing below header */
+.ocean-main { padding-top: 26px; }
+
+/* Keep plus FAB style for reference (not positioned absolute here) */
+.add-fab {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 25px;
+  border: none;
+  background: var(--color-bb86fc, #3B82F6);
+  color: #000;
+  cursor: pointer;
+}
+.add-fab .plus-icon {
+  display: inline-block;
+  width: 18px; height: 18px;
+  background: #000;
+  -webkit-mask:
+    linear-gradient(#000 0 0) center/100% 20% no-repeat,
+    linear-gradient(#000 0 0) center/20% 100% no-repeat;
+  mask:
+    linear-gradient(#000 0 0) center/100% 20% no-repeat,
+    linear-gradient(#000 0 0) center/20% 100% no-repeat;
+}
+
+/* Code font */
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }

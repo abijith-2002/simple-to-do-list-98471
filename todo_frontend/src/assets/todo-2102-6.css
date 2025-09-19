@@ -1,0 +1,213 @@
+/* Canvas positioning notes:
+   Figma absolute coordinates include a negative world origin. We rebase to (0,0)
+   by subtracting the root frame top-left (-1236, -316). All positions below are rebased. */
+
+.canvas-wrap {
+  position: relative;
+  width: 960px;
+  height: 540px;
+  background: var(--color-0f0f0f);
+  overflow: hidden;
+  font-family: var(--font-family-inter);
+}
+
+/* Header group (height 98) at top 0, left 0 within the canvas */
+.header-group {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 960px;
+  height: 98px;
+}
+.header-bg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 960px;
+  height: 98px;
+  background: var(--color-1a1a1a);
+  border: 1px solid var(--color-2a2a2a); /* style_1 */
+}
+.header-text {
+  position: absolute;
+  /* original x: -1160, root x: -1236 => offset = 76; y: -293, root y: -316 => offset = 23 */
+  left: 76px;
+  top: 23px;
+  width: 293px;
+  height: 51.0000038147px;
+}
+.header-title {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 67px;
+  height: 28px;
+  color: var(--color-ffffff);
+}
+.header-subtitle {
+  position: absolute;
+  left: 0px;
+  top: 33.8571472168px; /* 51 - 17.1428565979 approx 33.85714 from given y */
+  width: 293px;
+  height: 17.1428565979px;
+  color: var(--color-ffffff);
+}
+
+/* Add FAB group at coordinates: x:-371,y:129 size 70x70
+   Rebase: left = -371 - (-1236) = 865; top = 129 - (-316) = 445 */
+.add-fab {
+  position: absolute;
+  left: 865px;
+  top: 445px;
+  width: 70px;
+  height: 70px;
+  border-radius: var(--radius-25);
+  border: none;
+  background: var(--color-bb86fc);
+  cursor: pointer;
+  padding: 0;
+}
+.add-fab .plus-icon {
+  position: absolute;
+  /* plus vector at x:-344.8667,y:156.0667 within canvas
+     Rebase: left = 891.1333; top = 472.0667 relative to canvas.
+     Relative to button left/top => 891.1333-865 = 26.1333, 472.0667-445=27.0667 */
+  left: 26.1333335876px;
+  top: 27.0666656494px;
+  width: 17.7333335876px;
+  height: 17.7333335876px;
+  background: var(--color-000000);
+  /* Use a simple plus via pseudo shape: two bars using box-shadow? We'll emulate by mask */
+  -webkit-mask:
+    linear-gradient(#000 0 0) center/100% 20% no-repeat,
+    linear-gradient(#000 0 0) center/20% 100% no-repeat;
+  mask:
+    linear-gradient(#000 0 0) center/100% 20% no-repeat,
+    linear-gradient(#000 0 0) center/20% 100% no-repeat;
+  content: "";
+  display: block;
+}
+
+/* Task items common */
+.task {
+  position: absolute;
+  width: 525px;
+  height: 74px;
+}
+.task .task-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 525px;
+  height: 74px;
+  background: var(--color-1a1a1a);
+  border: 1px solid var(--color-2a2a2a);
+  border-radius: var(--radius-25);
+}
+.task .task-bullet {
+  position: absolute;
+  left: 32px; /* from ellipse x relative to item: see per-item overrides below */
+  top: 29px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  border: 2px solid var(--color-bb86fc); /* style_6 */
+  box-sizing: border-box;
+}
+.task .task-bullet.bb {
+  background: var(--color-bb86fc); /* style_8 */
+  border: 1px solid var(--color-000000); /* style_9 from child vector boundary */
+}
+.task .task-title {
+  position: absolute;
+  left: 122.9252929688px; /* from text x relative to item left computed below */
+  top: 33px; /* approximate center vs 16px line-height; Figma y used */
+  width: 343.1494750977px;
+  height: 17px;
+  color: var(--color-ffffff);
+  white-space: nowrap;
+}
+
+/* Handle icon (small square area where the vector was located) */
+.task .task-handle {
+  position: absolute;
+  right: 11.2183837891px; /* from 525 - (vector x relative) */
+  top: 30.8196411133px;
+  width: 10.3607034683px;
+  height: 10.3607034683px;
+  background: var(--color-696969); /* style_7 */
+  border-radius: 2px;
+}
+
+/* Task 1 specifics
+   Item frame: x:-1018, y:-175 -> rebased left=218, top=141 */
+.task-1 { left: 218px; top: 141px; }
+.task-1 .task-bullet {
+  /* ellipse x:-986 relative: 32, y:-146 relative: 29 */
+  left: 32px; top: 29px;
+}
+.task-1 .task-title {
+  /* text x:-927.0747 relative: 90.9253, but Figma's spacing shows around 122.925? Let's compute exactly:
+     Relative x = -927.07470703125 - (-1018) = 90.92529296875 */
+  left: 90.9252929688px;
+  top: 28px; /* original y:-147 relative: 28 */
+}
+.task-1 .task-handle {
+  /* vector x:-537.7816 relative: 480.2184; y:-143.1803 relative: 31.8197 */
+  left: 480.2183837891px;
+  top: 31.8196411133px;
+}
+
+/* Task 2 specifics: frame x:-1018,y:-92 -> left:218, top:224 */
+.task-2 { left: 218px; top: 224px; }
+.task-2 .task-bullet { left: 32px; top: 29px; }
+.task-2 .task-title { left: 90.9252929688px; top: 28px; }
+.task-2 .task-handle { left: 480.2183837891px; top: 31.8196487427px; }
+
+/* Task 3 specifics: frame x:-1018,y:-9 -> left:218, top:307 */
+.task-3 { left: 218px; top: 307px; }
+.task-3 .task-bullet { left: 32px; top: 29px; }
+.task-3 .task-title { left: 90.9252929688px; top: 28px; }
+.task-3 .task-handle { left: 480.2183837891px; top: 31.8196468353px; }
+
+/* Task 4 specifics: frame x:-1018,y:74 -> left:218, top:390 */
+.task-4 { left: 218px; top: 390px; }
+.task-4 .task-bullet { left: 32px; top: 29px; }
+.task-4 .task-title { left: 90.9252929688px; top: 28px; }
+.task-4 .task-handle { left: 480.2183837891px; top: 31.8196487427px; }
+
+/* Inner check group for task 4 (at x:-986,y:103 within canvas)
+   Relative within task-4: (-986 - -1018) = 32 left; (103 - 74) = 29 top.
+*/
+.task-4 .task-check {
+  position: absolute;
+  left: 32px;
+  top: 29px;
+  width: 16px;
+  height: 16px;
+}
+.task-4 .check-ellipse {
+  position: absolute;
+  left: 0; top: 0;
+  width: 16px; height: 16px;
+  background: var(--color-bb86fc);
+  border: 1px solid var(--color-000000); /* from style_9 on inner vector container */
+  border-radius: 9999px;
+  box-sizing: border-box;
+}
+.task-4 .check-tick {
+  position: absolute;
+  /* vector: width 6.7556, height 4.6222 at x offset 4.6222, y offset 5.6889 within the 16x16 */
+  left: 4.6222224236px;
+  top: 5.6888885498px;
+  width: 6.7555556297px;
+  height: 4.6222224236px;
+  background: var(--color-000000);
+  /* create a small tick shape using masks */
+  -webkit-mask:
+    linear-gradient(#000 0 0) left center/60% 20% no-repeat,
+    linear-gradient(#000 0 0) center center/20% 100% no-repeat;
+  mask:
+    linear-gradient(#000 0 0) left center/60% 20% no-repeat,
+    linear-gradient(#000 0 0) center center/20% 100% no-repeat;
+}

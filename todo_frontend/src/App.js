@@ -2,12 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './App.css';
 
 /**
- * Ocean Professional themed Todo App
- * - Header with app title
- * - Main: input at top, list below
- * - Footer: filters
- * - Features: add, edit, delete, complete, filter, clear completed
- * - LocalStorage persistence
+ * Ocean + Figma themed Todo App
+ * Integrates visual tokens and styles from assets/common.css & todo-2102-6.css,
+ * while preserving functionality and responsiveness.
  */
 
 // Types
@@ -21,18 +18,6 @@ import './App.css';
 
 // Utilities
 const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
-
-// Theme tokens (Ocean Professional)
-const theme = {
-  primary: '#2563EB',     // blue-600
-  secondary: '#F59E0B',   // amber-500
-  error: '#EF4444',       // red-500
-  background: '#f9fafb',  // gray-50
-  surface: '#ffffff',     // white
-  text: '#111827',        // gray-900
-  textMuted: '#6B7280',   // gray-500
-  border: '#E5E7EB'       // gray-200
-};
 
 // PUBLIC_INTERFACE
 function App() {
@@ -128,15 +113,43 @@ function App() {
   const completedCount = todos.length - activeCount;
 
   return (
-    <div className="App ocean-root">
-      <Header />
-      <main className="ocean-main">
-        <section className="card">
+    <div className="App ocean-root app-wrap">
+      {/* Header styled to resemble Figma header group */}
+      <header className="ocean-header header-group" role="banner" aria-label="Application Header">
+        <div className="header-bg" />
+        <div className="title-wrap header-text">
+          <div className="logo style-3">🧭</div>
+          <div className="titles">
+            <h1 className="app-title header-title typo-4">Tasks</h1>
+            <p className="app-subtitle header-subtitle typo-5">
+              {completedCount} of {todos.length || 0} completed
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main className="ocean-main canvas-responsive">
+        <section className="card style-5">
           <TodoInput
             value={input}
             onChange={setInput}
             onSubmit={handleSubmit}
           />
+
+          {/* Small floating action button near input (reference to Figma add-fab) */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
+            <button
+              type="button"
+              className="add-fab"
+              onClick={addTodo}
+              aria-label="Add task (quick)"
+              disabled={!input.trim()}
+              title="Quick add"
+            >
+              <span className="plus-icon" />
+            </button>
+          </div>
+
           <TodoList
             items={visibleTodos}
             onToggle={toggleTodo}
@@ -148,6 +161,7 @@ function App() {
             onConfirmEdit={confirmEdit}
             onCancelEdit={cancelEdit}
           />
+
           <FooterFilters
             filter={filter}
             setFilter={setFilter}
@@ -158,20 +172,6 @@ function App() {
         </section>
       </main>
     </div>
-  );
-}
-
-function Header() {
-  return (
-    <header className="ocean-header" role="banner" aria-label="Application Header">
-      <div className="title-wrap">
-        <div className="logo">🧭</div>
-        <div className="titles">
-          <h1 className="app-title">Ocean Tasks</h1>
-          <p className="app-subtitle">Focus on what matters.</p>
-        </div>
-      </div>
-    </header>
   );
 }
 
@@ -220,7 +220,7 @@ function TodoList({
   return (
     <ul className="todo-list" role="list" aria-label="Todo items">
       {items.map(item => (
-        <li key={item.id} className={`todo-item ${item.completed ? 'done' : ''}`}>
+        <li key={item.id} className={`todo-item style-12 ${item.completed ? 'done' : ''}`}>
           <div className="left">
             <label className="checkbox">
               <input
@@ -244,7 +244,7 @@ function TodoList({
                 aria-label="Edit todo text"
               />
             ) : (
-              <span className="text" onDoubleClick={() => onStartEdit(item.id, item.text)}>
+              <span className="text typo-9" onDoubleClick={() => onStartEdit(item.id, item.text)}>
                 {item.text}
               </span>
             )}
@@ -253,7 +253,7 @@ function TodoList({
             {editingId === item.id ? (
               <>
                 <button className="btn-ghost" onClick={onCancelEdit} aria-label="Cancel edit">Cancel</button>
-                <button className="btn-accent" onClick={onConfirmEdit} aria-label="Save edit" disabled={!editingText.trim()}>Save</button>
+                <button className="btn-accent style-16" onClick={onConfirmEdit} aria-label="Save edit" disabled={!editingText.trim()}>Save</button>
               </>
             ) : (
               <>
